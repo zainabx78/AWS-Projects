@@ -3,7 +3,8 @@
  
  ### Locally testing the node.js application before deploying on AWS
 
-   •  Clone the github repository containing the application code using `git clone <repo link>` into local environment.
+   •  Clone the github repository containing the application code using `git clone <repo link>` into the git bash local 
+   environment.
 
 
    •  Use `vim .env` to create an environment variables file and add:
@@ -18,7 +19,13 @@
    • Obtain the publishable key and secret key from stripe at `https://stripe.com/gb`. Make an account, select 'settings'         and then 'developers' followed by 'API keys'. This will grant test mode API keys for the application for project 
        purposes.
 
-   • In the local command line, run `npm run start`.
+   • Install node.js for windows from the official node.js website `https://nodejs.org/en`. 
+   
+   • Verify installation with `node -v` and `npm -v` in the git bash terminal.
+   
+   • Install express: `npm install express`.
+   
+   • In the local linux command line, run `npm run start`.
    
 
    • The application should be available at `http://localhost:3000` 
