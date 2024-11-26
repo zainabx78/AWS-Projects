@@ -41,6 +41,11 @@
 
    - Allow access on port 3000 from 0.0.0.0/0/
 
+3. Clone the github repository with the source code to the EC2 instance using `git clone <repo link>`.
+4. Create a .env file for the environment variables with `vim .env`.
+5. Install node.js and npm: `sudo yum install nodejs`. Also install express: `npm install express`.
+6. Run `npm run start`. The application should now be available at `<ec2PublicIp>:3000`.
+
 
 
 Credit to Kunal Verma for the application code and packages. Link to his Github repo: https://github.com/verma-kunal
