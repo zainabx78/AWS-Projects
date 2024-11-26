@@ -1,7 +1,7 @@
 # DEPLOYING A NODE.JS APPLICATION IN AWS
 
  
- ### LOCALLY TESTING THE APPLICATION BEFORE DEPLOYING IT ON AWS:
+ ### Locally testing the node.js application before deploying on AWS
 
    •  Clone the github repository containing the application code using `git clone <repo link>` into local environment.
 
