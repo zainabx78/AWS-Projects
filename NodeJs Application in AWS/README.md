@@ -16,12 +16,18 @@
    • Obtain the publishable key and secret key from stripe at `https://stripe.com/gb`. Make an account, select 'settings'         and then 'developers' followed by 'API keys'. This will grant test mode API keys for the application for project 
        purposes.
 
-   • In your local command line, run `npm run start`.
+   • In the local command line, run `npm run start`.
    
 
    • The application should be available at `http://localhost:3000` 
    
 ### Deploying the application on AWS
+1. Pre requisites- Create an AWS account (free tier for 12 months).
+2. Create an EC2 instance with these settings:
+                          Linux 2023 AMI
+                          Auto-assign public IP
+                          Security groups- add inbound rules- SSH on port 22 from 0.0.0.0/0.
+                                                            - Allow access on port 3000 from 0.0.0.0/0/
 
 
 
