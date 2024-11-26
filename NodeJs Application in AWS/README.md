@@ -46,6 +46,7 @@
 5. Install node.js and npm: `sudo yum install nodejs`. Also install express: `npm install express`.
 6. Run `npm run start`. The application should now be available at `<ec2PublicIp>:3000`.
 
+![Screenshot 2024-11-26 193410](https://github.com/user-attachments/assets/b7282aef-5893-416f-844a-f8f09785a06a)
 
 
 Credit to Kunal Verma for the application code and packages. Link to his Github repo: https://github.com/verma-kunal
