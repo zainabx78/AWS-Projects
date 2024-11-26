@@ -24,9 +24,10 @@
 ### Deploying the application on AWS
 1. Pre requisites- Create an AWS account (free tier for 12 months).
 2. Create an EC2 instance with these settings:
-                          Linux 2023 AMI
-                          Auto-assign public IP
-                          Security groups- add inbound rules
+   - Linux 2023 AMI
+   - Auto-assign public IP
+   - Security groups- add inbound rules
+     
    - SSH on port 22 from 0.0.0.0/0.
 
    - Allow access on port 3000 from 0.0.0.0/0/
