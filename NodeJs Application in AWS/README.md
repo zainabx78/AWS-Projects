@@ -1,4 +1,4 @@
-# DEPLOYING A NODE.JS APPLICATION IN AWS: Credit to Kunal Verma for the application code and packages. 
+# DEPLOYING A NODE.JS APPLICATION IN AWS
 
  
  ### LOCALLY TESTING THE APPLICATION BEFORE DEPLOYING IT ON AWS:
@@ -19,5 +19,10 @@
    • In your local command line, run `npm run start`.
    
 
-   • The application should be available at `http://localhost:3000`
+   • The application should be available at `http://localhost:3000` 
    
+### Deploying the application on AWS
+
+
+
+Credit to Kunal Verma for the application code and packages. Link to his Github repo: https://github.com/verma-kunal
