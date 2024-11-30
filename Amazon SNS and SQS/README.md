@@ -6,7 +6,7 @@
 ```
 wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-200-ACCDEV-2-91558/10-lab-sqs/code.zip -P /home/ec2-user/environment
 ```
-   3) unzip the code.zip application file `unzip code.zip`
+   3) Unzip the code.zip application file `unzip code.zip`
    4) Set permissions for the shell script which updates python and the AWS cli `chmod +x ./resources/setup.sh && ./resources/setup.sh` Input IP address to enforce security so that the S3 bucket is only accessible from that IP address.
    5) Check AWS Cli version and verify python SDK installation `aws --version` `pip show boto3`
 
