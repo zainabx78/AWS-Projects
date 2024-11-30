@@ -32,3 +32,8 @@ wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-200-ACCDEV-2-
 ```
 aws sqs create-queue --queue-name DeadLetterQueue.fifo --attributes file://deadletterqueue
 ```
+   2) The dead-letter queue requires a policy to enable access security. Only the owner of the queue should be able to communicate with the queue. In the following policy, SQS access is allowed explicitly to the account ID specified and therefore automatically denied to everyone else.
+```
+{"Policy": "{\"Version\": \"2008-10-17\",\"Id\": \"DlqSqsPolicy\",\"Statement\": [{\"Sid\": \"dead-letter-sqs\",\"Effect\": \"Allow\",\"Principal\": {\"AWS\": \"arn:aws:iam::<accountID>:root\"},\"Action\": [\"SQS:*\"],\"Resource\": \"arn:aws:sqs:us-east-1:<accountID>:DeadLetterQueue.fifo\"}]}"}
+```
+
