@@ -10,3 +10,6 @@ wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-200-ACCDEV-2-
    4) Set permissions for the shell script which updates python and the AWS cli `chmod +x ./resources/setup.sh && ./resources/setup.sh` Input IP address to enforce security so that the S3 bucket is only accessible from that IP address.
    5) Check AWS Cli version and verify python SDK installation `aws --version` `pip show boto3`
 
+### Configuring an SQS dead-letter queue
+ -
+ - 
