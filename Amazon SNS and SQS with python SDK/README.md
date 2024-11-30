@@ -58,8 +58,7 @@ aws sqs create-queue --queue-name updated_beans.fifo --attributes file://mainque
 ```
 - Both SQS queues (dead-letter and main) must use the same queue type e.g. in this project its FIFO.
 
-
-  2) Update the policy on the main SQS queue with unique account ID:
+   2) Update the policy on the main SQS queue with unique account ID:
 ```
 {"Policy": "{\"Version\": \"2008-10-17\",\"Id\": \"BeansSqsPolicy\",\"Statement\": [{\"Sid\": \"beans-sqs\",\"Effect\": \"Allow\",\"Principal\": {\"AWS\": \"arn:aws:iam::<AccountID>:root\"},\"Action\": \"SQS:*\",\"Resource\": \"arn:aws:sqs:us-east-1:<AccountID>:updated_beans.fifo\"},{\"Sid\": \"topic-subscription\",\"Effect\": \"Allow\",\"Principal\": {\"AWS\": \"arn:aws:iam::<AccountID>:root\",\"Service\": \"sns.amazonaws.com\"},\"Action\": \"SQS:SendMessage\",\"Resource\": \"arn:aws:sqs:us-east-1:<AccountID>:updated_beans.fifo\",\"Condition\": {\"ArnLike\": {\"aws:SourceArn\": \"arn:aws:sns:us-east-1:<AccountID>:updated_beans_sns.fifo\"}}},{\"Sid\": \"get-messages\",\"Effect\": \"Allow\",\"Principal\": {\"AWS\": [\"arn:aws:iam::<AccountID>:role/aws-elasticbeanstalk-ec2-role\",\"arn:aws:iam::<AccountID>:root\"]},\"Action\": [\"sqs:ChangeMessageVisibility\",\"sqs:DeleteMessage\",\"sqs:ReceiveMessage\"],\"Resource\": \"arn:aws:sqs:us-east-1:<AccountID>:updated_beans.fifo\"}]}"}
 ```
