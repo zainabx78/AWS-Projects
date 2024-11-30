@@ -11,5 +11,5 @@ wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-200-ACCDEV-2-
    5) Check AWS Cli version and verify python SDK installation `aws --version` `pip show boto3`
 
 ### Configuring an SQS dead-letter queue
- -
- - 
+
+   1) 
