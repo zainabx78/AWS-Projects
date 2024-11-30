@@ -17,7 +17,7 @@ wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-200-ACCDEV-2-
    5) Check AWS Cli version and verify python SDK installation `aws --version` `pip show boto3`
 
 ### Configuring an SQS dead-letter queue
-
+This has to be created first- it can then be defined as a target for the main SQS queue.
    1) A script in the EC2 instance contains information for the dead-letter queue configuration:
 ```
 {
@@ -30,10 +30,14 @@ wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-200-ACCDEV-2-
 ```
 - Run this script in the cloud9 terminal with aws CLI commands to create a dead-letter queue.
 ```
-aws sqs create-queue --queue-name DeadLetterQueue.fifo --attributes file://deadletterqueue
+aws sqs create-queue --queue-name DeadLetterQueue.fifo --attributes file://deadletterqueue.json
 ```
-   2) The dead-letter queue requires a policy to enable access security. Only the owner of the queue should be able to communicate with the queue. In the following policy, SQS access is allowed explicitly to the account ID specified and therefore automatically denied to everyone else.
+   2) The dead-letter queue requires a policy to enable access security. Only the owner of the queue should be able to communicate with the queue. Create the following policy, where SQS access is allowed explicitly to the account ID specified and therefore automatically denied to everyone else.
 ```
 {"Policy": "{\"Version\": \"2008-10-17\",\"Id\": \"DlqSqsPolicy\",\"Statement\": [{\"Sid\": \"dead-letter-sqs\",\"Effect\": \"Allow\",\"Principal\": {\"AWS\": \"arn:aws:iam::<accountID>:root\"},\"Action\": [\"SQS:*\"],\"Resource\": \"arn:aws:sqs:us-east-1:<accountID>:DeadLetterQueue.fifo\"}]}"}
 ```
-
+   3) Update the dead-letter queue's policy. Successful execution shouldnt yield an output.
+```
+aws sqs set-queue-attributes --queue-url "https://sqs.us-east-1.amazonaws.com/533267211698/DeadLetterQueue.fifo" --attributes file://deadletterqueue.json
+```
+### Creating the main SQS queue
