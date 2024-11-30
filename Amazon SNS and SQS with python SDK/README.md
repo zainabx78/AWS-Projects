@@ -18,4 +18,17 @@ wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-200-ACCDEV-2-
 
 ### Configuring an SQS dead-letter queue
 
-   1) The code file downloaded at the beginning contains multiple python scripts: 
+   1) A script in the EC2 instance contains information for the dead-letter queue configuration:
+```
+{
+    "FifoQueue": "true",
+    "VisibilityTimeout": "20",
+    "ReceiveMessageWaitTimeSeconds": "0",
+    "ContentBasedDeduplication": "false",
+    "DeduplicationScope": "queue"
+}
+```
+- Run this script in the cloud9 terminal with aws CLI commands to create a dead-letter queue.
+```
+aws sqs create-queue --queue-name DeadLetterQueue.fifo --attributes file://deadletterqueue
+```
