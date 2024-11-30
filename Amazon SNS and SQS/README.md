@@ -1,1 +1,1 @@
-# CREATING A MESSAGING SYSTEM USING AMAZON SNS AND SQS IN AWS
+# Creating a messaging system using amazon SNS and SQS in AWS cloud
