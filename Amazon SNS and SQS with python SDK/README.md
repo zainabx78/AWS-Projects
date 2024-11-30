@@ -1,5 +1,11 @@
 # Creating a messaging system using amazon SNS and SQS in AWS cloud
 
+### Prerequisites
+   - VPC
+   - EC2 instance configured with cloud9 access
+   - Security groups
+   - S3 bucket with static website hosting enabled- contains the website code
+
 ### Setting up cloud9 environment to host the application on an EC2 instance
    1) Log in to the AWS console and enter the cloud9 environment for the cloud9 EC2 instance.
    2) Download the application files and necessary python scripts: Download code.zip
@@ -12,4 +18,4 @@ wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-200-ACCDEV-2-
 
 ### Configuring an SQS dead-letter queue
 
-   1) 
+   1) The code file downloaded at the beginning contains multiple python scripts: 
