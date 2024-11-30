@@ -41,3 +41,28 @@ aws sqs create-queue --queue-name DeadLetterQueue.fifo --attributes file://deadl
 aws sqs set-queue-attributes --queue-url "https://sqs.us-east-1.amazonaws.com/533267211698/DeadLetterQueue.fifo" --attributes file://deadletterqueue.json
 ```
 ### Creating the main SQS queue
+This queue will receive messages from SNS and send the failed ones to the dead-letter queue while processing the successful ones.
+   1) Create a python script to store attributes for the SQS queue. Run this script with AWS cli:
+```
+{
+    "FifoQueue": "true",
+    "VisibilityTimeout": "30",
+    "ReceiveMessageWaitTimeSeconds": "20",
+    "ContentBasedDeduplication": "true",
+    "DeduplicationScope": "queue",
+    "RedrivePolicy": "{\"deadLetterTargetArn\":\"arn:aws:sqs:us-east-1:<AccountID>:DeadLetterQueue.fifo\",\"maxReceiveCount\":\"5\"}"
+}
+```
+```
+aws sqs create-queue --queue-name updated_beans.fifo --attributes file://mainqueue.json
+```
+- Both SQS queues (dead-letter and main) must use the same queue type e.g. in this project its FIFO.
+  
+  2) Update the policy on the main SQS queue with unique account ID:
+```
+{"Policy": "{\"Version\": \"2008-10-17\",\"Id\": \"BeansSqsPolicy\",\"Statement\": [{\"Sid\": \"beans-sqs\",\"Effect\": \"Allow\",\"Principal\": {\"AWS\": \"arn:aws:iam::<AccountID>:root\"},\"Action\": \"SQS:*\",\"Resource\": \"arn:aws:sqs:us-east-1:<AccountID>:updated_beans.fifo\"},{\"Sid\": \"topic-subscription\",\"Effect\": \"Allow\",\"Principal\": {\"AWS\": \"arn:aws:iam::<AccountID>:root\",\"Service\": \"sns.amazonaws.com\"},\"Action\": \"SQS:SendMessage\",\"Resource\": \"arn:aws:sqs:us-east-1:<AccountID>:updated_beans.fifo\",\"Condition\": {\"ArnLike\": {\"aws:SourceArn\": \"arn:aws:sns:us-east-1:<AccountID>:updated_beans_sns.fifo\"}}},{\"Sid\": \"get-messages\",\"Effect\": \"Allow\",\"Principal\": {\"AWS\": [\"arn:aws:iam::<AccountID>:role/aws-elasticbeanstalk-ec2-role\",\"arn:aws:iam::<AccountID>:root\"]},\"Action\": [\"sqs:ChangeMessageVisibility\",\"sqs:DeleteMessage\",\"sqs:ReceiveMessage\"],\"Resource\": \"arn:aws:sqs:us-east-1:<AccountID>:updated_beans.fifo\"}]}"}
+```
+   3) Run the policy script and update the policy for the main queue:
+```
+aws sqs set-queue-attributes --queue-url "https://sqs.us-east-1.amazonaws.com/533267211698/updated_beans.fifo" --attributes file://beans-queue-policy.json
+```
