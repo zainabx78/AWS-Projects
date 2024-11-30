@@ -66,3 +66,23 @@ aws sqs create-queue --queue-name updated_beans.fifo --attributes file://mainque
 ```
 aws sqs set-queue-attributes --queue-url "https://sqs.us-east-1.amazonaws.com/533267211698/updated_beans.fifo" --attributes file://beans-queue-policy.json
 ```
+### Creating the SNS Topic
+This SNS topic will receive messages from the suppliers and send them to the application
+
+1) Use the AWS CLI command to create the SNS topic: Identical messages/content won't be processed again for 5 minutes. 
+```
+aws sns create-topic --name updated_beans_sns.fifo --attributes DisplayName="updated beans sns",ContentBasedDeduplication="true",FifoTopic="true"
+```
+2) Create a policy document to attach to the sns queue- gives full sns priviliges to the topic owner.
+```
+{
+    "TopicArn": "arn:aws:sns:us-east-1:<AccountID>:updated_beans_sns.fifo",
+    "AttributeName": "Policy",
+    "AttributeValue": "{\"Version\": \"2008-10-17\",\"Id\": \"BeansTopicPolicy\",\"Statement\": [{\"Sid\": \"BeansAllowActions\",\"Effect\": \"Allow\",\"Principal\": {\"AWS\": \"arn:aws:iam::<AccountID>:root\"},\"Action\": [\"SNS:Publish\",\"SNS:RemovePermission\",\"SNS:SetTopicAttributes\",\"SNS:DeleteTopic\",\"SNS:ListSubscriptionsByTopic\",\"SNS:GetTopicAttributes\",\"SNS:Receive\",\"SNS:AddPermission\",\"SNS:Subscribe\"],\"Resource\": \"arn:aws:sns:us-east-1:<AccountID>:updated_beans_sns.fifo\",\"Condition\": {\"StringEquals\": {\"AWS:SourceOwner\": \"<AccountID>\"}}},{\"Sid\": \"BeansAllowPublish\",\"Effect\": \"Allow\",\"Principal\": {\"AWS\": \"*\"},\"Action\": \"SNS:Publish\",\"Resource\": \"arn:aws:sns:us-east-1:<AccountID>:updated_beans_sns.fifo\"}]}"
+}
+```
+3) Apply the policy through the cloud9 terminal
+```
+aws sns set-topic-attributes --cli-input-json file://topic-policy.json
+```
+### Link Amazon SNS to SQS queues
