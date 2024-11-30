@@ -18,7 +18,7 @@ wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-200-ACCDEV-2-
 
 ### Configuring an SQS dead-letter queue
 This has to be created first- it can then be defined as a target for the main SQS queue.
-   1) A script in the EC2 instance contains information for the dead-letter queue configuration:
+   1) Create a script in the EC2 instance which contains information for the dead-letter queue configuration:
 ```
 {
     "FifoQueue": "true",
@@ -86,3 +86,9 @@ aws sns create-topic --name updated_beans_sns.fifo --attributes DisplayName="upd
 aws sns set-topic-attributes --cli-input-json file://topic-policy.json
 ```
 ### Link Amazon SNS to SQS queues
+   1) Create a subscription from the SQS queue to the SNS topic:
+```
+aws sns subscribe --topic-arn "arn:aws:sns:us-east-1:533267211698:updated_beans_sns.fifo" --protocol sqs --notification-endpoint "arn:aws:sqs:us-east-1:533267211698:updated_beans.fifo"
+
+``` 
+
