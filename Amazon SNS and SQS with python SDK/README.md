@@ -6,7 +6,7 @@
    - Security groups
    - S3 bucket with static website hosting enabled- contains the website code
 
-![undefined](https://github.com/user-attachments/assets/008c0263-8f68-47d6-9536-32a241cb7126)
+![undefined (1)](https://github.com/user-attachments/assets/b1b840c0-f281-43c3-a1a1-8d96863d494b)
 
 ### Setting up cloud9 environment to host the application on an EC2 instance
    1) Log in to the AWS console and enter the cloud9 environment for the cloud9 EC2 instance.
