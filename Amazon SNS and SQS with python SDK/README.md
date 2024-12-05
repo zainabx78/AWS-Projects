@@ -91,4 +91,5 @@ aws sns set-topic-attributes --cli-input-json file://topic-policy.json
 aws sns subscribe --topic-arn "arn:aws:sns:us-east-1:533267211698:updated_beans_sns.fifo" --protocol sqs --notification-endpoint "arn:aws:sqs:us-east-1:533267211698:updated_beans.fifo"
 
 ``` 
+![undefined](https://github.com/user-attachments/assets/ee4c9670-9e7c-4610-b160-13c952794b58)
 
