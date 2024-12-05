@@ -6,6 +6,8 @@
    - Security groups
    - S3 bucket with static website hosting enabled- contains the website code
 
+![undefined](https://github.com/user-attachments/assets/008c0263-8f68-47d6-9536-32a241cb7126)
+
 ### Setting up cloud9 environment to host the application on an EC2 instance
    1) Log in to the AWS console and enter the cloud9 environment for the cloud9 EC2 instance.
    2) Download the application files and necessary python scripts: Download code.zip
@@ -91,5 +93,5 @@ aws sns set-topic-attributes --cli-input-json file://topic-policy.json
 aws sns subscribe --topic-arn "arn:aws:sns:us-east-1:533267211698:updated_beans_sns.fifo" --protocol sqs --notification-endpoint "arn:aws:sqs:us-east-1:533267211698:updated_beans.fifo"
 
 ``` 
-![undefined](https://github.com/user-attachments/assets/ee4c9670-9e7c-4610-b160-13c952794b58)
+
 
